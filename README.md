@@ -19,6 +19,54 @@ You can use instant translation simply by calling the library and you can transl
 
 ### Example  
 ```dart
-var desc = translateLkt('en', 'ar', 'hello,how are you');
-print(desc)
+import 'package:flutter/material.dart';
+import 'package:translatlkt/translatelkt.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var desc = ''; // Initialize desc
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: double.infinity,
+            ),
+            Text(desc),
+            ElevatedButton(
+              onPressed: () {
+                translateAndSetState();
+              },
+              child: Text("Translate"),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Function to translate and set the state
+  void translateAndSetState() async {
+    var translatedText = await translateLkt('en', 'ar', 'hello, how are you');
+    setState(() {
+      desc = translatedText;
+    });
+  }
+}
+
 ```
